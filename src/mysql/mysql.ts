@@ -1,4 +1,4 @@
-import mysql from 'mysql'
+import mysql, { MysqlError } from 'mysql'
 
 export default class MySql{
     private static _instance: MySql
@@ -19,6 +19,17 @@ export default class MySql{
 
     public static get instance(){
         return this._instance || (this._instance = new this())
+    }
+
+    static ejecutarQuery(q: string, callback: Function){
+        this.instance.cnn.query(q,(err: mysql.MysqlError,res: Object[],fields)=>{
+            if(err) throw new Error(err.message)
+            if(res.length){
+                callback(null,res)
+            }else{
+                callback('El registro solicitado no existe')
+            }
+        })
     }
 
     private conectarDB(){
