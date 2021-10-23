@@ -1,4 +1,5 @@
 import { Router, Response, Request} from 'express'
+import Heroes from '../models/heroes'
 import MySql from '../mysql/mysql'
 
 const router = Router()
@@ -41,6 +42,20 @@ router.get('/heroes/:id',(req: Request, res: Response) => {
             })
         }
     })
+})
+router.get('/seq/heroes',async(req: Request, res: Response)=>{
+    try {
+        const heroes = await Heroes.findAll()
+        res.json({
+            ok: true,
+            heroes
+        })
+    }catch (err){
+        res.status(500).json({
+            ok: false,
+            error: err
+        })
+    }
 })
 
 export default router
