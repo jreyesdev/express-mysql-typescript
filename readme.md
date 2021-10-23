@@ -12,3 +12,13 @@ DB_NAME="Nombre BD"
 DB_USERNAME="Usuario BD mysql"
 DB_PASS="Contraseña BD mysql"
 ```
+
+## Instalación
+```
+npm install
+```
+
+## Ejecución
+```
+npm start
+```
